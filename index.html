@@ -8,7 +8,7 @@
         <div class="main-wrapper">
             <div id="mainMenu">
                 <button id="openBlacklist">Open Blacklist</button>
-                <button id="openJSON">Open JSON.parse</button>
+                <button id="openReminders">Open Reminders</button>
             </div>
 
             <div id="backWrapper">
@@ -16,20 +16,35 @@
             </div>
 
             <div id="blackList" style="display: none">
+                <hr />
                     <label>Enter domain to add to blacklist:
                         <input id="blackListInput" type="text" />
                     </label>
                 <button id="addToBlackList">Add</button>
-
-                <ol id="blockedList">Blocked sites:</ol>
+                <br><br>
+                <div>Blocked sites:</div>
+                <ol id="blockedList"></ol>
+                <hr />
             </div>
 
-            <div id="JSON-overwrite">
-                Overwrite JSON.parse
+            <div id="reminder" style="display: none">
+                <hr />
+                <form id="remindersForm">
+                    <label>Enter reminder text and date:
+                        <input required id="reminderInput" type="text" />
+                    </label>
+                    <input required id="reminderInputDate" type="datetime-local" />
+                    <input type="submit" id="addReminder" value="Add"/>
+                </form>
+                <br><br>
+                <div>Reminders:</div>
+                <ol id="remindersList"></ol>
+                <hr />
             </div>
         </div>
 
         <script src="scripts/index.js"></script>
         <script src="scripts/blacklist/blacklist.js"></script>
+        <script src="scripts/reminders/reminders.js"></script>
     </body>
 </html>

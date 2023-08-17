@@ -1,17 +1,16 @@
 (function overrideParse () {
     const nativeParse = JSON.parse;
-    console.log(777);
-    window.a2 = 'hello';
 
     JSON.parse = function (value, reviver) {
         const result = nativeParse(value, reviver);
+        const phoenix = 'Phoenix Invictia';
 
-        if (Array.isArray(result)) {
-            result.unshift('Phoenix Invictia')
+        if (Array.isArray(result) && result[0] !== phoenix) {
+            result.unshift(phoenix)
         }
 
-        if (typeof result === 'object' && !Array.isArray(result)) {
-            result.company = 'Phoenix Invictia';
+        if (typeof result === 'object' && !Array.isArray(result) && result.company !== phoenix) {
+            result.company = phoenix;
         }
 
         return result;

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Hello Extensions",
-  "description": "Base Level Extension",
+  "name": "Phoenix Extension",
+  "description": "1) Reminders, 2) Domain Blacklist, 3) Override JSON.parse",
   "version": "1.0",
   "permissions": [
     "storage",
@@ -11,15 +11,23 @@
   ],
   "action": {
     "default_popup": "index.html",
-    "default_icon": "media/gmKIT88Ha1z8VBMJFOOH.png"
-  },
-  "background" : {
-    "service_worker": "./scripts/background.js"
+    "default_icon": "media/phoenix.png"
   },
   "content_scripts": [
     {
       "matches": ["https://*/*"],
-      "js": ["./scripts/json/json.js"]
+      "js": ["./scripts/json/json.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "service_worker": "scripts/background.js"
+  },
+  "host_permissions": ["<all_urls>"],
+  "web_accessible_resources": [
+    {
+      "resources": [ "scripts/json/jsonOverride.js" ],
+      "matches": [ "https://*/*" ]
     }
   ]
 }

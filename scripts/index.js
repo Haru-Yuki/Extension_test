@@ -1,6 +1,6 @@
 const blackList = document.querySelector('#blackList');
 const mainMenu = document.querySelector('#mainMenu');
-const json = document.querySelector('#JSON-overwrite');
+const reminders = document.querySelector('#reminder');
 const back = document.querySelector('#back');
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,12 +11,18 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+        if (!storage.reminders || !Array.isArray(storage.reminders)) {
+            chrome.storage.local.set({
+                reminders: [],
+            });
+        }
+
         switch (storage.openedTab) {
             case 'blackList':
                 showBlackList();
                 break;
-            case 'JSON':
-                showJSON();
+            case 'reminders':
+                showReminders();
                 break;
             default:
                 showHome();
@@ -31,10 +37,10 @@ document.querySelector('#openBlacklist').addEventListener('click', () => {
     chrome.storage.local.set({openedTab: 'blackList'});
 });
 
-document.querySelector('#openJSON').addEventListener('click', () => {
-    showJSON();
+document.querySelector('#openReminders').addEventListener('click', () => {
+    showReminders();
 
-    chrome.storage.local.set({openedTab: 'JSON'});
+    chrome.storage.local.set({openedTab: 'reminders'});
 });
 
 back.addEventListener('click', () => {
@@ -46,20 +52,20 @@ back.addEventListener('click', () => {
 const showHome = () => {
     back.style.display = 'none';
     blackList.style.display = 'none';
-    json.style.display = 'none';
+    reminders.style.display = 'none';
     mainMenu.style.display = 'block';
 }
 
 const showBlackList = () => {
     back.style.display = 'block';
     blackList.style.display = 'block';
-    json.style.display = 'none';
+    reminders.style.display = 'none';
     mainMenu.style.display = 'none';
 }
 
-const showJSON = () => {
+const showReminders = () => {
     back.style.display = 'block';
-    json.style.display = 'block';
+    reminders.style.display = 'block';
     blackList.style.display = 'none';
     mainMenu.style.display = 'none';
 }
