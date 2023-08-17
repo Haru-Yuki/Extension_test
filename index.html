@@ -1,0 +1,35 @@
+<html lang="en">
+    <head>
+        <title></title>
+
+        <link rel="stylesheet" href="styles/styles.css">
+    </head>
+    <body>
+        <div class="main-wrapper">
+            <div id="mainMenu">
+                <button id="openBlacklist">Open Blacklist</button>
+                <button id="openJSON">Open JSON.parse</button>
+            </div>
+
+            <div id="backWrapper">
+                <button id="back" style="display: none">Back to Home</button>
+            </div>
+
+            <div id="blackList" style="display: none">
+                    <label>Enter domain to add to blacklist:
+                        <input id="blackListInput" type="text" />
+                    </label>
+                <button id="addToBlackList">Add</button>
+
+                <ol id="blockedList">Blocked sites:</ol>
+            </div>
+
+            <div id="JSON-overwrite">
+                Overwrite JSON.parse
+            </div>
+        </div>
+
+        <script src="scripts/index.js"></script>
+        <script src="scripts/blacklist/blacklist.js"></script>
+    </body>
+</html>

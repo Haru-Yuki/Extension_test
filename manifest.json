@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Hello Extensions",
+  "description": "Base Level Extension",
+  "version": "1.0",
+  "permissions": [
+    "storage",
+    "declarativeNetRequest",
+    "activeTab",
+    "scripting"
+  ],
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "media/gmKIT88Ha1z8VBMJFOOH.png"
+  },
+  "background" : {
+    "service_worker": "./scripts/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*/*"],
+      "js": ["./scripts/json/json.js"]
+    }
+  ]
+}
