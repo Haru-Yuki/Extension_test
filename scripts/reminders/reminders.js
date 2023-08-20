@@ -7,6 +7,10 @@ document.querySelector('#remindersForm').addEventListener('submit', (event) => {
     addReminderToList(reminderText, reminderDate);
 });
 
+chrome.storage.onChanged.addListener(() => {
+    renderRemindersList();
+});
+
 const renderRemindersList = () => {
     const remindersList = document.querySelector('#remindersList');
     remindersList.innerHTML = '';
@@ -16,20 +20,25 @@ const renderRemindersList = () => {
         const listFragment = new DocumentFragment();
 
         if (remindersListStorage?.length) {
-            remindersListStorage.forEach((item) => {
+            remindersListStorage.forEach((reminder) => {
                 const remindersItem = document.createElement('li');
-                const remove = document.createElement('span');
-                const formattedDate = new Date(item.date).toLocaleString();
+                const remove = document.createElement('button');
+                const formattedDate = document.createElement('div');
+                let formattedDateText = new Date(reminder.date).toUTCString();
+                formattedDateText = formattedDateText.substring(0, formattedDateText.length - 7);
 
-                remindersItem.innerText = `${item.text} (${formattedDate})`;
-                remove.innerText = ' X';
+                formattedDate.classList.add('reminder-date');
+                formattedDate.innerText = formattedDateText;
+                remindersItem.innerText = reminder.text;
+                remove.innerText = 'Remove';
+                remove.classList.add('button', 'button--remove')
 
-                remindersItem.insertAdjacentElement('beforeend', remove);
+                remindersItem.appendChild(formattedDate).append(remove);
                 listFragment.append(remindersItem);
 
                 remove.addEventListener('click', function handleRemove(e) {
-                    if (e.target.nodeName === 'SPAN') {
-                        removeReminderFromList(item.id);
+                    if (e.target.nodeName === 'BUTTON') {
+                        removeReminderFromList(reminder.id);
                     }
                     remove.removeEventListener('click', handleRemove);
                 });
@@ -45,22 +54,21 @@ renderRemindersList();
 const addReminderToList = (reminderText, reminderDate) => {
     chrome.storage.local.get().then((storage) => {
         const reminders = storage.reminders;
+
         const reminder = {
             text: reminderText,
             date: reminderDate,
             id: self.crypto.randomUUID()
         };
 
-        // if (remindersList.find(item => item.text === reminderText)) {
-        //     alert('You have already added such a domain to blacklist!')
-        //     return;
-        // }
+        if (reminders.find(reminder => reminder.text === reminderText && reminder.date === reminderDate)) {
+            alert('You have already added such a reminder!')
+            return;
+        }
 
         reminders.push(reminder);
 
         chrome.storage.local.set({ reminders });
-
-        renderRemindersList();
     });
 };
 
@@ -71,7 +79,5 @@ const removeReminderFromList = (id) => {
         });
 
         chrome.storage.local.set({ reminders });
-
-        renderRemindersList();
     });
 };

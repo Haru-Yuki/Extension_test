@@ -1,71 +1,54 @@
 const blackList = document.querySelector('#blackList');
-const mainMenu = document.querySelector('#mainMenu');
 const reminders = document.querySelector('#reminder');
-const back = document.querySelector('#back');
 
-document.addEventListener('DOMContentLoaded', () => {
+(function initListeners() {
+    document.addEventListener('DOMContentLoaded', () => init());
+    document.querySelector('#openBlacklist').addEventListener('click', () => manageMenu('blackList'));
+    document.querySelector('#openReminders').addEventListener('click', () => manageMenu('reminders'));
+
+})();
+
+const init = () => {
     chrome.storage.local.get().then((storage) => {
-        if (!storage.blackList || !Array.isArray(storage.blackList)) {
-            chrome.storage.local.set({
-                blackList: []
-            });
-        }
-
-        if (!storage.reminders || !Array.isArray(storage.reminders)) {
-            chrome.storage.local.set({
-                reminders: [],
-            });
-        }
-
-        switch (storage.openedTab) {
-            case 'blackList':
-                showBlackList();
-                break;
-            case 'reminders':
-                showReminders();
-                break;
-            default:
-                showHome();
-                break;
-        }
+        initStore(storage);
+        manageMenu(storage.openedTab);
     })
-})
-
-document.querySelector('#openBlacklist').addEventListener('click', () => {
-    showBlackList();
-
-    chrome.storage.local.set({openedTab: 'blackList'});
-});
-
-document.querySelector('#openReminders').addEventListener('click', () => {
-    showReminders();
-
-    chrome.storage.local.set({openedTab: 'reminders'});
-});
-
-back.addEventListener('click', () => {
-    showHome();
-
-    chrome.storage.local.set({openedTab: null});
-});
-
-const showHome = () => {
-    back.style.display = 'none';
-    blackList.style.display = 'none';
-    reminders.style.display = 'none';
-    mainMenu.style.display = 'block';
 }
 
-const showBlackList = () => {
-    back.style.display = 'block';
-    blackList.style.display = 'block';
-    reminders.style.display = 'none';
-    mainMenu.style.display = 'none';
+const manageMenu = (openedTab) => {
+    const blackListRadio = document.querySelector('#openBlacklistInput');
+    const remindersRadio = document.querySelector('#openRemindersInput');
+
+    switch (openedTab) {
+        case 'blackList':
+            blackList.style.display = 'block';
+            reminders.style.display = 'none';
+            blackListRadio.checked = true;
+            break;
+        case 'reminders':
+            reminders.style.display = 'block';
+            blackList.style.display = 'none';
+            remindersRadio.checked = true;
+            break;
+        default:
+            blackList.style.display = 'none';
+            reminders.style.display = 'none';
+            break;
+    }
+
+    chrome.storage.local.set({openedTab: openedTab});
 }
 
-const showReminders = () => {
-    back.style.display = 'block';
-    reminders.style.display = 'block';
-    blackList.style.display = 'none';
-    mainMenu.style.display = 'none';
+const initStore = (storage) => {
+    if (!storage.blackList || !Array.isArray(storage.blackList)) {
+        chrome.storage.local.set({
+            blackList: []
+        });
+    }
+
+    if (!storage.reminders || !Array.isArray(storage.reminders)) {
+        chrome.storage.local.set({
+            reminders: [],
+        });
+    }
 }

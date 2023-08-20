@@ -15,8 +15,9 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://*/*"],
-      "js": ["./scripts/json/json.js"],
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["./scripts/json/json_cs.js", "./scripts/reminders/reminders_cs.js"],
+      "css": ["./styles/styles_cs.css"],
       "run_at": "document_idle"
     }
   ],
@@ -26,8 +27,8 @@
   "host_permissions": ["<all_urls>"],
   "web_accessible_resources": [
     {
-      "resources": [ "scripts/json/jsonOverride.js" ],
-      "matches": [ "https://*/*" ]
+      "resources": ["scripts/json/json.js"],
+      "matches": ["http://*/*", "https://*/*"]
     }
   ]
 }

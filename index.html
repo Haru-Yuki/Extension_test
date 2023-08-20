@@ -1,48 +1,42 @@
+<!DOCTYPE html>
 <html lang="en">
     <head>
-        <title></title>
-
+        <title>Phoenix</title>
         <link rel="stylesheet" href="styles/styles.css">
     </head>
     <body>
         <div class="main-wrapper">
             <div id="mainMenu">
-                <button id="openBlacklist">Open Blacklist</button>
-                <button id="openReminders">Open Reminders</button>
+                <div>
+                    <input id="openBlacklistInput" class="mainMenu-input" type="radio" name="main-filter" />
+                    <label id="openBlacklist" for="openBlacklistInput" class="mainMenu-label">Open Blacklist</label>
+                </div>
+                <div>
+                    <input id="openRemindersInput" class="mainMenu-input" type="radio" name="main-filter" />
+                    <label id="openReminders" for="openRemindersInput" class="mainMenu-label">Open Reminders</label>
+                </div>
             </div>
-
-            <div id="backWrapper">
-                <button id="back" style="display: none">Back to Home</button>
-            </div>
-
             <div id="blackList" style="display: none">
-                <hr />
-                    <label>Enter domain to add to blacklist:
-                        <input id="blackListInput" type="text" />
-                    </label>
-                <button id="addToBlackList">Add</button>
+                <label>Enter domain to add to blacklist:
+                    <input id="blackListInput" type="text" />
+                </label>
+                <button class="button button--add" id="addToBlackList">Add</button>
                 <br><br>
                 <div>Blocked sites:</div>
                 <ol id="blockedList"></ol>
-                <hr />
             </div>
-
             <div id="reminder" style="display: none">
-                <hr />
                 <form id="remindersForm">
                     <label>Enter reminder text and date:
                         <input required id="reminderInput" type="text" />
                     </label>
                     <input required id="reminderInputDate" type="datetime-local" />
-                    <input type="submit" id="addReminder" value="Add"/>
+                    <input class="button button--add" type="submit" id="addReminder" value="Add Reminder"/>
                 </form>
-                <br><br>
                 <div>Reminders:</div>
                 <ol id="remindersList"></ol>
-                <hr />
             </div>
         </div>
-
         <script src="scripts/index.js"></script>
         <script src="scripts/blacklist/blacklist.js"></script>
         <script src="scripts/reminders/reminders.js"></script>

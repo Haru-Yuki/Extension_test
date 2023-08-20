@@ -9,6 +9,10 @@ document.querySelector('#addToBlackList').addEventListener('click', () => {
     }
 });
 
+chrome.storage.onChanged.addListener(() => {
+    renderBlackList();
+});
+
 const renderBlackList = () => {
     const blackListList = document.querySelector('#blockedList');
     blackListList.innerHTML = '';
@@ -20,16 +24,17 @@ const renderBlackList = () => {
         if (blackList?.length) {
             blackList.forEach((item) => {
                 const blackListItem = document.createElement('li');
-                const remove = document.createElement('span');
+                const remove = document.createElement('button');
 
                 blackListItem.innerText = item.url;
-                remove.innerText = ' X';
+                remove.innerText = 'Remove';
+                remove.classList.add('button', 'button--remove')
 
                 blackListItem.insertAdjacentElement('beforeend', remove);
                 listFragment.append(blackListItem);
 
                 remove.addEventListener('click', function handleRemove(e) {
-                    if (e.target.nodeName === 'SPAN') {
+                    if (e.target.nodeName === 'BUTTON') {
                         removeFromList(item.id);
                     }
                     remove.removeEventListener('click', handleRemove);
@@ -61,7 +66,6 @@ const addToList = (url) => {
         chrome.storage.local.set({ blackList });
 
         blockDomain(domain);
-        renderBlackList();
     });
 };
 
@@ -74,7 +78,6 @@ const removeFromList = (id) => {
         chrome.storage.local.set({ blackList });
 
         unblockDomain(id);
-        renderBlackList();
     });
 };
 

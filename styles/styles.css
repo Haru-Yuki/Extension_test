@@ -9,3 +9,72 @@ body {
 .main-wrapper {
     width: 350px;
 }
+
+#mainMenu {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px
+}
+
+.mainMenu-input {
+    display: none;
+}
+
+.mainMenu-input:checked + label {
+    color: #1779ba;
+    text-decoration-line: underline;
+    text-underline-offset: 7px;
+    text-decoration-thickness: 5px;
+}
+
+.mainMenu-input:hover {
+    background-color: transparent;
+}
+
+.mainMenu-label:hover {
+    cursor: pointer;
+    color: #1779ba;
+}
+
+.button {
+    padding: 1px 25px;
+    background: white;
+    border-color: #1779ba;
+}
+
+.button:hover {
+    cursor: pointer;
+    background: #1779ba;
+    border-color: white;
+    color: white;
+}
+
+.button--add {
+    margin-top: 5px;
+    width: 94%;
+    padding: 10px 0;
+}
+
+.button--remove {
+    margin-left: 10px;
+    padding: 0 5px;
+    border-color: #ad0303;
+}
+
+.button--remove:hover {
+    background: #ad0303;
+}
+
+#blackList, #reminder {
+    padding: 0 10px;
+}
+
+#blackListInput {
+    width: 94%;
+    margin-top: 5px;
+}
+
+.reminder-date {
+    font-size: 16px;
+    font-style: italic;
+}

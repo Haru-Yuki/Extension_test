@@ -1,17 +1,18 @@
-function injectCode(src) {
-    const script = document.createElement('script');
+(function overrideParse () {
+    const nativeParse = JSON.parse;
 
-    script.src = src;
-    script.onload = function() {
-        this.remove();
-    };
+    JSON.parse = function (value, reviver) {
+        const result = nativeParse(value, reviver);
+        const phoenix = 'Phoenix Invictia';
 
-    const nullThrows = (v) => {
-        if (v == null) throw new Error("it's a null");
-        return v;
+        if (Array.isArray(result) && result[0] !== phoenix) {
+            result.unshift(phoenix)
+        }
+
+        if (typeof result === 'object' && !Array.isArray(result) && result.company !== phoenix) {
+            result.company = phoenix;
+        }
+
+        return result;
     }
-
-    nullThrows(document.head || document.documentElement).appendChild(script);
-}
-
-injectCode(chrome.runtime.getURL('./scripts/json/jsonOverride.js'));
+})();

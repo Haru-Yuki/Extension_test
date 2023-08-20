@@ -1,0 +1,41 @@
+* {
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+}
+
+.reminder {
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 99999;
+    background: white;
+    color: black;
+    display: inline-block;
+    margin: 10px 0;
+}
+
+.reminder-text {
+    word-break: break-word;
+}
+
+.reminder-icon {
+    position: absolute;
+    top: -9px;
+    left: -1px;
+    font-size: 22px;
+}
+
+.reminder-close {
+    display: inline-block;
+    color: black;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.reminder-close:hover {
+    cursor: pointer;
+    color: #ad0303;
+}
