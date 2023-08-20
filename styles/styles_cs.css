@@ -22,17 +22,20 @@
 
 .reminder-icon {
     position: absolute;
-    top: -9px;
-    left: -1px;
-    font-size: 22px;
+    top: 1px;
+    left: 1px;
+    font-size: 16px;
 }
 
 .reminder-close {
+    background: white;
+    border-color: #ad0303;
     display: inline-block;
     color: black;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 1px;
+    right: 1px;
+    border-radius: 10px;
 }
 
 .reminder-close:hover {
