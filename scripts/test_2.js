@@ -6,7 +6,6 @@
         if (scriptElem && styleElem) {
             addScript(scriptElem);
             addStyles(styleElem);
-            removeScripts();
 
             mutationInstance.disconnect();
         }
@@ -102,4 +101,6 @@
                 script.remove();
             })
     }
+
+    removeScripts();
 })();
