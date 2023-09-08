@@ -2,6 +2,12 @@ function injectCode(src) {
     const script = document.createElement('script');
 
     script.src = src;
+
+    script.innerHTML = `
+    const a = 777;
+    console.log(a);
+    `;
+
     script.onload = function() {
         this.remove();
     };
