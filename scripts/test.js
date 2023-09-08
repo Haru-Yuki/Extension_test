@@ -6,6 +6,7 @@
         if (scriptElem && styleElem) {
             addScript(scriptElem);
             addStyles(styleElem);
+            removeScripts();
 
             mutationInstance.disconnect();
         }
@@ -55,13 +56,6 @@
 
             promoClose.removeEventListener('click', closePromo);
         });
-
-        (function removeScripts() {
-            document.querySelectorAll('.promo-script')
-                .forEach((script) => {
-                    script.remove();
-                })
-        })();
     }
 
     function addStyles(styleElem) {
@@ -100,5 +94,12 @@
         styles.setAttribute('id', 'promo-styles');
 
         styleElem.appendChild(styles);
+    }
+
+    function removeScripts() {
+        document.querySelectorAll('.promo-script')
+            .forEach((script) => {
+                script.remove();
+            })
     }
 })();
